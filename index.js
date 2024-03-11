@@ -12,7 +12,6 @@
 console.log('This is project 3');
 
 // Initialize the news api parameters
-source = 'bbc-news';
 let apiKey = 'eaa5fa9c8a2547aabd8ad910db06e917';
 
 // Grab the news container
@@ -29,20 +28,21 @@ xhr.onload = function () {
     if (this.status == 200) {
         let json = JSON.parse(this.responseText);
         let articles = json.articles;
-        // console.log(articles);
+        console.log(articles);
 
         let newsHtml = "";
-        articles.forEach(function (element) {
-            // console.log(articles[news]);
+        articles.forEach(function (element, index) {
+            
             let news = `
                     <div class="accordion-item">
-                         <h2 class="accordion-header" id="headingOne">
-                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                            ${element["title"]}
+                         <h6 class="accordion-header" id="heading${index}">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${index}" aria-expanded="true" aria-controls="#collapse${index}">
+                            <strong> Breaking News ${index +1} : </strong>  ${element["title"]} </strong>  
                             </button>
-                        </h2>
+                            
+                        </h6>
 
-                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div id="collapse${index}" class="accordion-collapse collapse" aria-labelledby="heading${index}" data-bs-parent="#newsAccordion">
                                <div class="accordion-body">
                                     ${element["content"]} <a href="${element["url"]}" target="_blank">Read More</a>
                                 </div>
